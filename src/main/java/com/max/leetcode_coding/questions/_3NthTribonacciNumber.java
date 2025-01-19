@@ -1,6 +1,6 @@
 package com.max.leetcode_coding.questions;
 
-public class _2NthTribonacciNumber {
+public class _3NthTribonacciNumber {
 
   public static void main(String[] args) {
     System.out.println(nthTribonacciNumber(25));

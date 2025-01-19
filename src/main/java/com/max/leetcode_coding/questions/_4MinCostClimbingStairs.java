@@ -1,6 +1,6 @@
 package com.max.leetcode_coding.questions;
 
-public class _3MinCostClimbingStairs {
+public class _4MinCostClimbingStairs {
 
   public static void main(String[] args) {
     System.out.println(minCostClimbingStairs(new int[]{1,100,1,1,1,100,1,1,100,1}));
