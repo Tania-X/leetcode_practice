@@ -5,6 +5,8 @@ public class _14HouseRob2 {
   public static void main(String[] args) {
 
     System.out.println(houseRob2(new int[]{1,2,3,1}));
+    System.out.println("-------");
+    System.out.println(houseRob22(new int[]{1,2,3,1}));
   }
 
   public static int houseRob2(int[] nums) {
@@ -49,6 +51,29 @@ public class _14HouseRob2 {
       dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
     }
     return dp[len - 2];
+  }
+
+  public static int houseRob22(int[] nums) {
+    int len = nums.length;
+    if (len == 1) {
+      return nums[0];
+    } else if (len == 2) {
+      return Math.max(nums[0], nums[1]);
+    }
+    return Math.max(doHouseRob22(nums, 1, len), nums[0] + doHouseRob22(nums, 2, len - 1));
+  }
+
+  private static int doHouseRob22(int[] nums, int start, int end) {
+    int f1 = 0;
+    int f2 = 0;
+    int newF = 0;
+    for (int i = start; i < end; i++) {
+      f1 = f2;
+      f2 = newF;
+      newF = Math.max(f1 + nums[i], f2);
+    }
+
+    return newF;
   }
 
 }
