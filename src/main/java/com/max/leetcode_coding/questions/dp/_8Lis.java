@@ -1,4 +1,4 @@
-package com.max.leetcode_coding.questions;
+package com.max.leetcode_coding.questions.dp;
 
 import java.util.ArrayList;
 import java.util.List;
