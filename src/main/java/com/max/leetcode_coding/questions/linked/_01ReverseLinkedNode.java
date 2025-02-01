@@ -13,6 +13,8 @@ public class _01ReverseLinkedNode {
 
   }
 
+  // 有头结点的方式（假设这里的`h`是一个头结点，那么必须不断将新的元素插入`h`节点与`h`节点的下一个节点之间）
+  // 可以对比`06`解答
   public static ListNode reverseList(ListNode head) {
     if (head == null || head.next == null) {
       return head;
