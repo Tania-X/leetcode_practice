@@ -3,8 +3,8 @@ package com.max.leetcode_coding.questions.linked;
 public class _09AddTwoNumbers {
 
   public static void main(String[] args) {
-    ListNode l1 = new ListNode(7, new ListNode(2, new ListNode(4, new ListNode(3))));
-    ListNode l2 = new ListNode(5, new ListNode(6, new ListNode(4)));
+    ListNode l1 = new ListNode(9, new ListNode(9, new ListNode(9)));
+    ListNode l2 = new ListNode(9);
     ListNode result = addTwoNumbers(l1, l2);
     System.out.println("result = " + result);
 
@@ -41,17 +41,38 @@ public class _09AddTwoNumbers {
     if (la == null && lb == null) {
       if (nextBit) {
         ptr.next = new ListNode(1);
+        nextBit = false;
       }
     } else if (la == null) {
-      ptr.next = lb;
-      lb.val = nextBit ? lb.val + 1 : lb.val;
+      nextBit = dealTails(lb, nextBit, ptr);
     }
     else {
-      ptr.next = la;
-      la.val = nextBit ? la.val + 1 : la.val;
+      nextBit = dealTails(la, nextBit, ptr);
     }
-    // 将该更长的链表反转
+    if (nextBit) {
+      ptr = result;
+      while (ptr.next != null) {
+        ptr = ptr.next;
+      }
+      ptr.next = new ListNode(1);
+    }
+    // 将结果链表反转
     return reverseAndCount(result.next);
+  }
+
+  private static boolean dealTails(ListNode curr, boolean nextBit, ListNode ptr) {
+    ptr.next = curr;
+    while (ptr.next != null) {
+      ptr.next.val = nextBit ? ptr.next.val + 1 : ptr.next.val;
+      if (ptr.next.val >= 10) {
+        ptr.next.val -= 10;
+        nextBit = true;
+      } else {
+        nextBit = false;
+      }
+      ptr = ptr.next;
+    }
+    return nextBit;
   }
 
   private static ListNode reverseAndCount(ListNode head) {
