@@ -124,4 +124,31 @@ public class _09AddTwoNumbers {
     return result.next;
   }
 
+  // 在上面基础上更简单，替代头插法
+  public static ListNode addTwoNumbers3(ListNode l1, ListNode l2) {
+    Deque<ListNode> stack1 = new ArrayDeque<>();
+    Deque<ListNode> stack2 = new ArrayDeque<>();
+    while (l1 != null) {
+      stack1.push(l1);
+      l1 = l1.next;
+    }
+    while (l2 != null) {
+      stack2.push(l2);
+      l2 = l2.next;
+    }
+    int carry = 0;
+    ListNode result = null;
+    while (!stack1.isEmpty() || !stack2.isEmpty() || carry != 0) {
+      int val1 = stack1.isEmpty() ? 0 : stack1.pop().val;
+      int val2 = stack2.isEmpty() ? 0 : stack2.pop().val;
+      int val = val1 + val2 + carry;
+      carry = val / 10;
+      val = val % 10;
+      ListNode curr = new ListNode(val);
+      curr.next = result;
+      result = curr;
+    }
+    return result;
+  }
+
 }
