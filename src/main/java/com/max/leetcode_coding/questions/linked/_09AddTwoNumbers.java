@@ -1,12 +1,17 @@
 package com.max.leetcode_coding.questions.linked;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class _09AddTwoNumbers {
 
   public static void main(String[] args) {
     ListNode l1 = new ListNode(9, new ListNode(9, new ListNode(9)));
     ListNode l2 = new ListNode(9);
-    ListNode result = addTwoNumbers(l1, l2);
-    System.out.println("result = " + result);
+//    ListNode result = addTwoNumbers(l1, l2);
+    ListNode result2 = addTwoNumbers2(l1, l2);
+//    System.out.println("result = " + result);
+    System.out.println("result2 = " + result2);
 
   }
 
@@ -90,6 +95,33 @@ public class _09AddTwoNumbers {
     }
     pr.next = temp;
     return pr;
+  }
+
+  // 使用栈+头插法实现，简单多了
+  public static ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+    Deque<ListNode> stack1 = new ArrayDeque<>();
+    Deque<ListNode> stack2 = new ArrayDeque<>();
+    while (l1 != null) {
+      stack1.push(l1);
+      l1 = l1.next;
+    }
+    while (l2 != null) {
+      stack2.push(l2);
+      l2 = l2.next;
+    }
+    int carry = 0;
+    ListNode result = new ListNode(-1);
+    while (!stack1.isEmpty() || !stack2.isEmpty() || carry != 0) {
+      int val1 = stack1.isEmpty() ? 0 : stack1.pop().val;
+      int val2 = stack2.isEmpty() ? 0 : stack2.pop().val;
+      int val = val1 + val2 + carry;
+      carry = val / 10;
+      val = val % 10;
+      ListNode cur = new ListNode(val);
+      cur.next = result.next;
+      result.next = cur;
+    }
+    return result.next;
   }
 
 }
