@@ -70,4 +70,24 @@ public class _03SortList {
     return head2;
   }
 
+
+
+  // 自底向上的做法，递归改成迭代
+  // 感觉改成迭代，理解起来不难，操作起来很麻烦，我不打算这么做了
+  public static ListNode sortList2(ListNode head) {
+    if (head == null || head.next == null) {
+      return head;
+    }
+    // 获取链表长度
+    ListNode ptr = head;
+    int count = 0;
+    while (ptr != null) {
+      count++;
+      ptr = ptr.next;
+    }
+    // todo ...
+
+    return head;
+  }
+
 }
