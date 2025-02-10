@@ -3,7 +3,7 @@ package com.max.leetcode_coding.questions.sort;
 import java.util.Arrays;
 import java.util.Random;
 
-public class _11SortArray {
+public class _01SortArray {
 
   public static void main(String[] args) {
     int[] result = sortArray(new int[]{2, -3, 1, 4});
