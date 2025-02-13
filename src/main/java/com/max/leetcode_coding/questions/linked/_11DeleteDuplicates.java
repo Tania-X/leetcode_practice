@@ -11,32 +11,15 @@ public class _11DeleteDuplicates {
     if (head == null || head.next == null) {
       return head;
     }
-    ListNode ans = new ListNode(-1, head);
-    ListNode pl = ans;
-    ListNode pm = ans;
-    ListNode pr = head;
-    ListNode rev = pl;
-    int count = 0;
-    while (pr.next != null) {
-      pr = pr.next;
-      if (pr.val == pm.val) {
-        count++;
+    ListNode cur = head;
+    while (cur.next != null) {
+      if (cur.val == cur.next.val) {
+        cur.next = cur.next.next;
       } else {
-        pm = pr;
-        if (count != 0) {
-          pl.next = pr;
-          rev = pl;
-          count = 0;
-        } else {
-          pl = pl.next;
-        }
+        cur = cur.next;
       }
     }
-    if (pl.val == pr.val) {
-      pl = rev;
-      pl.next = null;
-    }
-    return ans.next;
+    return head;
   }
 
 }
