@@ -10,18 +10,16 @@ public class _17RemoveNodes {
   }
 
   public static ListNode removeNodes(ListNode head) {
-    ListNode tail = reverse(head);
-    ListNode cur = tail;
-    int maxVal = cur.val;
+    head = reverse(head);
+    ListNode cur = head;
     while (cur.next != null) {
-      if (maxVal > cur.next.val) {
+      if (cur.val > cur.next.val) {
         cur.next = cur.next.next;
       } else {
-        maxVal = cur.next.val;
         cur = cur.next;
       }
     }
-    return reverse2(tail);
+    return reverse2(head);
   }
 
   private static ListNode reverse(ListNode head) {
