@@ -20,7 +20,7 @@ public class _20RotateRight {
       len++;
     }
     k = k % len;
-    // split and combine
+    // find the end node and split
     int split = len - k;
     if (split == len) {
       return head;
