@@ -21,7 +21,7 @@ public class _17RemoveNodes {
         cur = cur.next;
       }
     }
-    return reverse(tail);
+    return reverse2(tail);
   }
 
   private static ListNode reverse(ListNode head) {
@@ -38,6 +38,21 @@ public class _17RemoveNodes {
     }
     cur.next = ptr;
     return cur;
+  }
+
+  private static ListNode reverse2(ListNode head) {
+    if (head == null || head.next == null) {
+      return head;
+    }
+    ListNode cur = head;
+    ListNode dummy = new ListNode(-1);
+    while (cur != null) {
+      ListNode temp = cur.next;
+      cur.next = dummy.next;
+      dummy.next = cur;
+      cur = temp;
+    }
+    return dummy.next;
   }
 
 }
