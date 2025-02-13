@@ -25,32 +25,25 @@ public class _17RemoveNodes {
   }
 
   private static ListNode reverse(ListNode head) {
-    if (head == null || head.next == null) {
-      return head;
-    }
     ListNode cur = head;
-    ListNode ptr = null;
-    while (cur.next != null) {
-      ListNode tmp = cur.next;
-      cur.next = ptr;
-      ptr = cur;
-      cur = tmp;
+    ListNode prev = null;
+    while (cur != null) {
+      ListNode next = cur.next;
+      cur.next = prev;
+      prev = cur;
+      cur = next;
     }
-    cur.next = ptr;
-    return cur;
+    return prev;
   }
 
   private static ListNode reverse2(ListNode head) {
-    if (head == null || head.next == null) {
-      return head;
-    }
     ListNode cur = head;
     ListNode dummy = new ListNode(-1);
     while (cur != null) {
-      ListNode temp = cur.next;
+      ListNode next = cur.next;
       cur.next = dummy.next;
       dummy.next = cur;
-      cur = temp;
+      cur = next;
     }
     return dummy.next;
   }
