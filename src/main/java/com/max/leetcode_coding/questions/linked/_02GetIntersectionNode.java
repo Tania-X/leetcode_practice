@@ -3,7 +3,11 @@ package com.max.leetcode_coding.questions.linked;
 public class _02GetIntersectionNode {
 
   public static void main(String[] args) {
-
+    ListNode headC = new ListNode(1, new ListNode(8, new ListNode(4, new ListNode(5))));
+    ListNode headA = new ListNode(4, headC);
+    ListNode headB = new ListNode(5, new ListNode(6, headC));
+    ListNode intersectionNode = getIntersectionNode3(headA, headB);
+    System.out.println("intersectionNode = " + intersectionNode);
 
   }
 
@@ -63,6 +67,38 @@ public class _02GetIntersectionNode {
       cur = cur.next;
     }
     return ans;
+  }
+
+  // m3 遍历A链表，到达末尾时直接后接B链表，构造成寻找环链入环点的题型
+  public static ListNode getIntersectionNode3(ListNode headA, ListNode headB) {
+    if (headA == null || headB == null) {
+      return null;
+    }
+    ListNode cur = headA;
+    while (cur.next != null) {
+      cur = cur.next;
+    }
+    cur.next = headB;
+    ListNode fast = headA;
+    ListNode slow = headA;
+    while (fast.next != null && fast.next.next != null) {
+      fast = fast.next.next;
+      slow = slow.next;
+      // 这里要判断的是快指针与慢指针相同的情况去做什么，而不是判断不同的情况去做什么
+      if (fast == slow) {
+        ListNode start = headA;
+        while (start != slow) {
+          start = start.next;
+          slow = slow.next;
+        }
+        // 将链表结构断开
+        cur.next = null;
+        return start;
+      }
+    }
+    // 将链表结构断开
+    cur.next = null;
+    return null;
   }
 
 }
