@@ -15,11 +15,11 @@ public class LRUCache {
 
     private LinkedCache next;
 
-    public LinkedCache() {
+    private LinkedCache() {
 
     }
 
-    public LinkedCache(int key, int value) {
+    private LinkedCache(int key, int value) {
       this.key = key;
       this.value = value;
     }
@@ -28,7 +28,7 @@ public class LRUCache {
   // 由一个HashMap维护查询时间复杂度为o(1)的数据结构，用于直接存储数据
   private final Map<Integer, LinkedCache> cache = new HashMap<>();
 
-  // 由两个dummy节点，维护双向链表的开端与结尾，如此方便在端口执行增删操作，考虑与HashMap联动操作
+  // 由两个dummy节点，维护双向链表的开端与结尾，如此方便在端口执行增删操作，需要考虑与HashMap联动操作
   private final LinkedCache dummyHead = new LinkedCache();
   private final LinkedCache dummyTail = new LinkedCache();
 
