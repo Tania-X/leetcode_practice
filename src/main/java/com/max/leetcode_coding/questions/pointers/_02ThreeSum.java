@@ -1,7 +1,6 @@
 package com.max.leetcode_coding.questions.pointers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class _02ThreeSum {
@@ -13,8 +12,7 @@ public class _02ThreeSum {
   }
 
   public static List<List<Integer>> threeSum(int[] nums) {
-//    sort(nums);
-    Arrays.sort(nums);
+    sort(nums);
     int len = nums.length;
     List<List<Integer>> ans = new ArrayList<>();
     for (int i = 0; i < len - 2; i++) {
@@ -53,22 +51,37 @@ public class _02ThreeSum {
 
   private static void sort(int[] nums) {
     int len = nums.length;
-    mergeSort(nums, 0, len - 1);
+    int[] sup = new int[len];
+    mergeSort(nums, 0, len - 1, sup);
   }
 
-  private static void mergeSort(int[] nums, int left, int right) {
+  private static void mergeSort(int[] nums, int left, int right, int[] sup) {
     if (left < right) {
       int mid = left + (right - left) / 2;
-      mergeSort(nums, left, mid);
-      mergeSort(nums, mid + 1, right);
-      doMergeSort(nums, left, right);
+      mergeSort(nums, left, mid, sup);
+      mergeSort(nums, mid + 1, right, sup);
+      doMergeSort(nums, left, mid, right, sup);
     }
-
   }
 
-  private static void doMergeSort(int[] nums, int left, int right) {
-    int[] sup = new int[nums.length];
-
+  private static void doMergeSort(int[] nums, int left, int mid, int right, int[] sup) {
+    int k = 0;
+    int i = left;
+    int j = mid + 1;
+    while (i <= mid && j <= right) {
+      if (nums[i] <= nums[j]) {
+        sup[k++] = nums[i++];
+      } else {
+        sup[k++] = nums[j++];
+      }
+    }
+    while (i <= mid) {
+      sup[k++] = nums[i++];
+    }
+    while (j <= right) {
+      sup[k++] = nums[j++];
+    }
+    System.arraycopy(sup, 0, nums, left, k);
   }
 
 }
