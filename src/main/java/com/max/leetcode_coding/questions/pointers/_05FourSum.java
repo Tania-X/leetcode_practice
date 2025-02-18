@@ -1,38 +1,43 @@
 package com.max.leetcode_coding.questions.pointers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class _05FourSum {
 
   public static void main(String[] args) {
+
+    List<List<Integer>> lists = fourSum(new int[]{2, 2, 2, 2, 2}, 8);
+    System.out.println("lists = " + lists);
 
 
   }
 
   public static List<List<Integer>> fourSum(int[] nums, int target) {
     int len = nums.length;
+    Set<List<Integer>> ans = new HashSet<>();
     if (len < 4) {
-      return null;
+      return new ArrayList<>(ans);
     }
-    List<List<Integer>> ans = new ArrayList<>();
     sort(nums);
     for (int i = 0; i < len - 3; i++) {
-      int x = nums[i];
+      long x = nums[i];
       for (int j = i + 1; j < len - 2; j++) {
-        int y = nums[j];
+        long y = nums[j];
         int k = j + 1;
         int l = len - 1;
         while (k < l) {
-          int z = nums[k];
-          int w = nums[l];
-          int sum = x + y + z + w;
+          long z = nums[k];
+          long w = nums[l];
+          long sum = x + y + z + w;
           if (sum > target) {
             l--;
           } else if (sum < target) {
             k++;
           } else {
-            ans.add(List.of(x, y, z, w));
+            ans.add(List.of((int) x, (int) y, (int) z, (int) w));
             k++;
             while (k < l && nums[k] == nums[k - 1]) {
               k++;
@@ -45,7 +50,7 @@ public class _05FourSum {
         }
       }
     }
-    return ans;
+    return new ArrayList<>(ans);
   }
 
   private static void sort(int[] nums) {
