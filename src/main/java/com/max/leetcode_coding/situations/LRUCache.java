@@ -1,4 +1,4 @@
-package com.max.leetcode_coding.questions.linked;
+package com.max.leetcode_coding.situations;
 
 import java.util.HashMap;
 import java.util.Map;
