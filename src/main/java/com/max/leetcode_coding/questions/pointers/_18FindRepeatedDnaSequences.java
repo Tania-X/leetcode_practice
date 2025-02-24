@@ -23,8 +23,6 @@ public class _18FindRepeatedDnaSequences {
     Map<String, Integer> map = new HashMap<>();
     for (int i = 0; i <= n - 10; i++) {
       map.merge(s.substring(i, i + 10), 1, Integer::sum);
-    }
-    for (int i = 0; i <= n - 10; i++) {
       if (map.get(s.substring(i, i + 10)) >= 2) {
         ans.add(s.substring(i, i + 10));
       }
