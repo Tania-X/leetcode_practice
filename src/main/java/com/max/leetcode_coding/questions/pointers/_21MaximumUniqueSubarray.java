@@ -13,22 +13,19 @@ public class _21MaximumUniqueSubarray {
 
   public static int maximumUniqueSubarray(int[] nums) {
     int ans = 0;
+    int n = nums.length;
     Map<Integer, Integer> map = new HashMap<>();
     int left = 0;
     int sum = 0;
-    for (int num : nums) {
-      sum += num;
-      map.merge(num, 1, Integer::sum);
-      if (map.get(num) > 1) {
-        while (map.get(nums[left]) == 1) {
-          sum -= nums[left];
-          map.remove(nums[left++]);
-        }
-        map.merge(num, -1, Integer::sum);
-        sum -= nums[left++];
-      } else {
-        ans = Math.max(sum, ans);
+    for (int right = 0; right < n; right++) {
+      map.merge(nums[right], 1, Integer::sum);
+      sum += nums[right];
+      while (map.get(nums[right]) > 1) {
+        sum -= nums[left];
+        map.merge(nums[left], -1, Integer::sum);
+        left++;
       }
+      ans = Math.max(ans, sum);
     }
     return ans;
   }
