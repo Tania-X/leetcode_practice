@@ -14,6 +14,9 @@ public class _22TotalFruit {
 
   public static int totalFruit(int[] fruits) {
     int n = fruits.length;
+    if (n < 2) {
+      return 0;
+    }
     int ans = -1;
     int left = 0;
     Map<Integer, Integer> map = new HashMap<>();
