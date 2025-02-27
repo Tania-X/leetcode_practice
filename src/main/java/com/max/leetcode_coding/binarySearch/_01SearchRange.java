@@ -26,7 +26,7 @@ public class _01SearchRange {
     while (left + 1 < right) {
       int mid = left + (right - left) / 2;
       if (nums[mid] >= target) {
-        right = mid + 1;
+        right = mid;
       } else {
         left = mid;
       }
