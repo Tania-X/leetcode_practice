@@ -16,4 +16,22 @@ public class _01MaxDepth {
     return Math.max(left, right) + 1;
   }
 
+  private static int ans = 0;
+
+  public static int maxDepth2(TreeNode root) {
+    dfs(root, 0);
+    return ans;
+  }
+
+  private static void dfs(TreeNode root, int depth) {
+    // base case
+    if (root == null) {
+      return;
+    }
+    depth++;
+    ans = Math.max(ans, depth);
+    dfs(root.left, depth);
+    dfs(root.right, depth);
+  }
+
 }
