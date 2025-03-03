@@ -1,4 +1,4 @@
-package com.max.leetcode_coding.tree;
+package com.max.leetcode_coding.questions.tree;
 
 public class TreeNode {
 
