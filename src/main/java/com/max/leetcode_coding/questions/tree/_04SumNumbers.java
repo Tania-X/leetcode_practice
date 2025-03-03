@@ -9,17 +9,17 @@ public class _04SumNumbers {
     return ans;
   }
 
-  private void doSumNumbers(TreeNode root, int cur) {
-    if (root == null) {
+  private void doSumNumbers(TreeNode node, int cur) {
+    if (node == null) {
       return;
     }
-    cur = cur * 10 + root.val;
-    if (root.left == root.right) {
+    cur = cur * 10 + node.val;
+    if (node.left == node.right) {
       ans += cur;
       return;
     }
-    doSumNumbers(root.left, cur);
-    doSumNumbers(root.right, cur);
+    doSumNumbers(node.left, cur);
+    doSumNumbers(node.right, cur);
   }
 
 }

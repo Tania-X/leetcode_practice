@@ -23,15 +23,15 @@ public class _01MaxDepth {
     return ans;
   }
 
-  private static void dfs(TreeNode root, int depth) {
+  private static void dfs(TreeNode node, int depth) {
     // base case
-    if (root == null) {
+    if (node == null) {
       return;
     }
     depth++;
     ans = Math.max(ans, depth);
-    dfs(root.left, depth);
-    dfs(root.right, depth);
+    dfs(node.left, depth);
+    dfs(node.right, depth);
   }
 
 }
