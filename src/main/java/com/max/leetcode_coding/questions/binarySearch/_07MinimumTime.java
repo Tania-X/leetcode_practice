@@ -1,4 +1,4 @@
-package com.max.leetcode_coding.binarySearch;
+package com.max.leetcode_coding.questions.binarySearch;
 
 public class _07MinimumTime {
 
