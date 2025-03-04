@@ -21,4 +21,17 @@ public class _05GoodNodes {
     doGoodNodes(node.right, maxVal);
   }
 
+  public int goodNodes2(TreeNode root) {
+    return doGoodNodes2(root, -10001);
+  }
+
+  private int doGoodNodes2(TreeNode node, int maxVal) {
+    if (node == null) {
+      return 0;
+    }
+    int left = doGoodNodes2(node.left, Math.max(node.val, maxVal));
+    int right = doGoodNodes2(node.right, Math.max(node.val, maxVal));
+    return left + right + (maxVal <= node.val ? 1 : 0);
+  }
+
 }
