@@ -25,4 +25,19 @@ public class _17RangeSumBST {
     }
   }
 
+  public int rangeSumBST2(TreeNode root, int low, int high) {
+    if (root == null) {
+      return 0;
+    }
+    int x = root.val;
+    int sum = x <= high && x >= low ? x : 0;
+    if (x < low) {
+      return rangeSumBST2(root.right, low, high);
+    }
+    if (x > high) {
+      return rangeSumBST2(root.left, low, high);
+    }
+    return sum + rangeSumBST2(root.left, low, high) + rangeSumBST2(root.right, low, high);
+  }
+
 }
