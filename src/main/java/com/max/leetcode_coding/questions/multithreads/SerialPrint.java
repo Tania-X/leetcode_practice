@@ -1,4 +1,4 @@
-package com.max.leetcode_coding.multithreads;
+package com.max.leetcode_coding.questions.multithreads;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
