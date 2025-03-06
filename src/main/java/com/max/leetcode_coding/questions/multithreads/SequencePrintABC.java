@@ -68,6 +68,7 @@ public class SequencePrintABC {
       while (x <= n) {
         lock.lock();
         try {
+          // B的位置提前终止
           if (x >= n) {
             break;
           }
