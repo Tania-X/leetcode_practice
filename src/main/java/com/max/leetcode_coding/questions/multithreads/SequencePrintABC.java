@@ -6,11 +6,19 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class SequencePrintABC {
 
+  public static int round = 0;
+
   public static void main(String[] args) throws InterruptedException {
 
-    new Thread(new PrintA()).start();
-    new Thread(new PrintB()).start();
-    new Thread(new PrintC()).start();
+    Lock lock = new ReentrantLock();
+    Condition conditionA = lock.newCondition();
+    Condition conditionB = lock.newCondition();
+    Condition conditionC = lock.newCondition();
+    int count = 3;
+
+    new Thread(new ConditionInTurnPrintABC(lock, conditionA, conditionB, "A", count, 0)).start();
+    new Thread(new ConditionInTurnPrintABC(lock, conditionB, conditionC, "B", count, 1)).start();
+    new Thread(new ConditionInTurnPrintABC(lock, conditionC, conditionA, "C", count, 2)).start();
 
     lock.lock();
     try {
@@ -19,99 +27,52 @@ public class SequencePrintABC {
       lock.unlock();
     }
 
-//    Thread.sleep(3 * 1000);
+    Thread.sleep(3 * 1000);
 
   }
 
-  private static final int n = 8;
+}
 
-  private static int x = 0;
+class ConditionInTurnPrintABC implements Runnable {
 
-  private static final Lock lock = new ReentrantLock();
+  private final Lock lock;
 
-  private static final Condition conditionA = lock.newCondition();
+  private final Condition await;
 
-  private static final Condition conditionB = lock.newCondition();
+  private final Condition signal;
 
-  private static final Condition conditionC = lock.newCondition();
+  private final String output;
 
-  static class PrintA implements Runnable {
+  private final int count;
 
-    @Override
-    public void run() {
-      while (x <= n) {
-        lock.lock();
-        try {
-          while (x % 3 != 0) {
-            conditionA.await();
-          }
-          if (x > n) {
-            break;
-          }
-          System.out.print("A");
-          x++;
-          System.out.print("x = " + x);
-          conditionB.signal();
-        } catch (Exception e) {
-          System.out.println("e = " + e);
-        } finally {
-          lock.unlock();
+  private final int weight;
+
+  public ConditionInTurnPrintABC(Lock lock, Condition await, Condition signal, String output,
+      int count, int weight) {
+    this.lock = lock;
+    this.await = await;
+    this.signal = signal;
+    this.output = output;
+    this.count = count;
+    this.weight = weight;
+  }
+
+  @Override
+  public void run() {
+    for (int i = 0; i < count; i++) {
+      lock.lock();
+      try {
+        while (SequencePrintABC.round % 3 != weight) {
+          await.await();
         }
+        System.out.print(output);
+        SequencePrintABC.round++;
+        signal.signal();
+      } catch (InterruptedException e) {
+        // do nothing
+      } finally {
+        lock.unlock();
       }
     }
   }
-
-  static class PrintB implements Runnable {
-
-    @Override
-    public void run() {
-      while (x <= n) {
-        lock.lock();
-        try {
-          // B的位置提前终止
-          if (x >= n) {
-            break;
-          }
-          while (x % 3 != 1) {
-            conditionB.await();
-          }
-          System.out.print("B");
-          x++;
-          System.out.print("x = " + x);
-          conditionC.signal();
-        } catch (Exception e) {
-          System.out.println("e = " + e);
-        } finally {
-          lock.unlock();
-        }
-      }
-    }
-  }
-
-  static class PrintC implements Runnable {
-
-    @Override
-    public void run() {
-      while (x <= n) {
-        lock.lock();
-        try {
-          while (x % 3 != 2) {
-            conditionC.await();
-          }
-          if (x > n) {
-            break;
-          }
-          System.out.print("C");
-          x++;
-          System.out.print("x = " + x);
-          conditionA.signal();
-        } catch (Exception e) {
-          System.out.println("e = " + e);
-        } finally {
-          lock.unlock();
-        }
-      }
-    }
-  }
-
 }

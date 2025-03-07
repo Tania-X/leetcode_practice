@@ -9,7 +9,7 @@ public class SemaphoreInTurnPrintABC {
     Semaphore semaphoreA = new Semaphore(1);
     Semaphore semaphoreB = new Semaphore(0);
     Semaphore semaphoreC = new Semaphore(0);
-    int count = 3;
+    int count = 10;
 
     new Thread(new PrintCharacter(semaphoreA, semaphoreB, "A", count)).start();
     new Thread(new PrintCharacter(semaphoreB, semaphoreC, "B", count)).start();
