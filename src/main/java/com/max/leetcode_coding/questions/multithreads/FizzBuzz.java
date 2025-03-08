@@ -55,6 +55,7 @@ public class FizzBuzz {
   // printFizz.run() outputs "fizz".
   public void fizz(Runnable printFizz) throws InterruptedException {
     for (int i = 3; i <= n; i += 3) {
+      // avoid the situation where fizz and fizzbuzz execute their acquire code simultaneously, which potentially causes threads running
       if (i % 5 != 0) {
         try {
           fizz.acquire();
@@ -69,6 +70,7 @@ public class FizzBuzz {
   // printBuzz.run() outputs "buzz".
   public void buzz(Runnable printBuzz) throws InterruptedException {
     for (int i = 5; i <= n; i += 5) {
+      // avoid the situation where buzz and fizzbuzz execute their acquire code simultaneously, which potentially causes threads running
       if (i % 3 != 0) {
         try {
           buzz.acquire();
