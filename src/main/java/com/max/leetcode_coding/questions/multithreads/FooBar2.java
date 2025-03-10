@@ -31,7 +31,7 @@ public class FooBar2 {
     this.n = n;
   }
 
-  private boolean flg = false;
+  private volatile boolean flg = false;
 
   private final Map<Integer, Thread> map = new ConcurrentHashMap<>();
 
