@@ -24,6 +24,9 @@ public class _01IsValid {
       if (map.containsKey(c)) {
         stack.push(c);
       } else {
+        if (stack.isEmpty()) {
+          return false;
+        }
         char left = stack.pop();
         char counter = map.get(left);
         if (counter != c) {
@@ -31,7 +34,7 @@ public class _01IsValid {
         }
       }
     }
-    return true;
+    return stack.isEmpty();
   }
 
 }
