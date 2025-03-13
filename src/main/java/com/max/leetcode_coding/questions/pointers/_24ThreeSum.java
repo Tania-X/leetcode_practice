@@ -16,6 +16,9 @@ public class _24ThreeSum {
     List<List<Integer>> ans = new ArrayList<>();
     for (int i = 0; i < n - 2; i++) {
       int x = nums[i];
+      if (i > 0 && x == nums[i - 1]) {
+        continue;
+      }
       int j = i + 1;
       int k = n - 1;
       while (j < k) {
