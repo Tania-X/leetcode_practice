@@ -1,7 +1,9 @@
 package com.max.leetcode_coding.questions.stack;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 
 public class SimplifyPath {
 
@@ -35,6 +37,22 @@ public class SimplifyPath {
       sb.append("/").append(s);
     }
     return sb.toString().isEmpty() ? "/" : sb.toString();
+  }
+
+  public static String simplifyPath2(String path) {
+    List<String> stringList = new ArrayList<>();
+    String[] paths = path.split("/");
+    for (String s : paths) {
+      if (s.isEmpty() || s.equals(".")) {
+        continue;
+      }
+      if (!s.equals("..")) {
+        stringList.add(s);
+      } else if (stringList.size() >= 1) {
+        stringList.remove(stringList.size() - 1);
+      }
+    }
+    return "/" + String.join("/", stringList);
   }
 
 }
