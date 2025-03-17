@@ -43,11 +43,12 @@ class PrintCharacter implements Runnable {
     for (int i = 0; i < count; i++) {
       try {
         acquire.acquire();
+        System.out.print(character);
       } catch (InterruptedException e) {
         System.out.println("e = " + e);
+      } finally {
+        release.release();
       }
-      System.out.print(character);
-      release.release();
     }
   }
 }
